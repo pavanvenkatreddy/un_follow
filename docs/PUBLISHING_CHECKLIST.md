@@ -34,7 +34,7 @@ Official references:
 
 ## Privacy and Policy
 
-- [ ] Publish `privacy/index.html` at a stable public URL.
+- [ ] Publish `privacy.html` at a stable public URL.
 - [ ] Add that URL in the Chrome Web Store Developer Dashboard.
 - [ ] Fill out the Privacy practices tab consistently with the privacy policy.
 - [ ] Certify limited use / user data handling in the dashboard.

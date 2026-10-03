@@ -56,7 +56,7 @@ https://pavanvenkatreddy.github.io/
 Privacy policy URL:
 
 ```text
-Publish privacy/index.html with GitHub Pages and use that public URL.
+Publish privacy.html with GitHub Pages and use that public URL.
 ```
 
 Support URL:
