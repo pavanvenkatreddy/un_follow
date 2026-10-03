@@ -1,6 +1,6 @@
 import { compareFollowingDiscovery, compareNetworkDiscovery } from "./src/compare.js";
 import { exportUsersCsv } from "./src/csv.js";
-import { fetchRelationshipPage, normalizeUsername, sleep } from "./src/instagramApi.js";
+import { fetchRelationshipPage, normalizeUsername, sleep } from "./src/platformApi.js";
 import { clearNetworkFollowingCache, loadLastDiscovery, loadLastScan, loadNetworkFollowingCache, saveLastDiscovery, saveNetworkFollowingCache } from "./src/storage.js";
 
 const DEFAULT_DELAY_MS = 3000;
@@ -59,7 +59,7 @@ const elements = {
   networkUsernameInput: document.querySelector("#networkUsernameInput"),
   notFollowedBackCount: document.querySelector("#notFollowedBackCount"),
   notFollowingBackCount: document.querySelector("#notFollowingBackCount"),
-  openInstagramButton: document.querySelector("#openInstagramButton"),
+  openSiteButton: document.querySelector("#openSiteButton"),
   overlapPercent: document.querySelector("#overlapPercent"),
   resultCount: document.querySelector("#resultCount"),
   resultsList: document.querySelector("#resultsList"),
@@ -106,7 +106,7 @@ function wireEvents() {
   });
   elements.networkClearCacheButton.addEventListener("click", clearNetworkCache);
   elements.networkScanButton.addEventListener("click", runNetworkScan);
-  elements.openInstagramButton.addEventListener("click", () => {
+  elements.openSiteButton.addEventListener("click", () => {
     chrome.tabs.create({
       url: "https://www.instagram.com/"
     });
@@ -248,7 +248,7 @@ async function runDiscoverCompare(event) {
     setDiscoverStatus(`Compared @${target.username} using id ${target.id}.`, targetFollowing.length);
   } catch (error) {
     console.warn(error);
-    const message = error.message?.startsWith("Instagram rejected")
+    const message = error.message?.startsWith("Supported website rejected")
       ? error.message
       : normalizeDiscoverError(error);
     setDiscoverStatus(message, "");
@@ -676,7 +676,7 @@ function exportActiveView() {
         ? "you-dont"
         : state.activeView;
 
-  exportUsersCsv(users, `instagram-${label}.csv`);
+  exportUsersCsv(users, `follow-check-${label}.csv`);
 }
 
 function renderUserList({ container, users, emptyMessage }) {
@@ -886,11 +886,11 @@ function setNetworkStatus(message) {
 
 function normalizeDiscoverError(error) {
   const message = error.message || "Discovery failed.";
-  if (message.startsWith("Instagram returned 404")) {
-    return "Could not find that Instagram account.";
+  if (message.startsWith("Supported website returned 404")) {
+    return "Could not find that account.";
   }
 
-  if (message.startsWith("Instagram returned 400") || message.startsWith("Instagram returned 403")) {
+  if (message.startsWith("Supported website returned 400") || message.startsWith("Supported website returned 403")) {
     return "This account's following list is not available to your session.";
   }
 

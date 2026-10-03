@@ -1,6 +1,6 @@
 import { compareRelationships } from "./src/compare.js";
 import { exportUsersCsv } from "./src/csv.js";
-import { fetchCurrentUser, fetchRelationshipPage, sleep } from "./src/instagramApi.js";
+import { fetchCurrentUser, fetchRelationshipPage, sleep } from "./src/platformApi.js";
 import { loadLastScan, saveLastScan } from "./src/storage.js";
 
 const DEFAULT_DELAY_MS = 3000;
@@ -196,7 +196,7 @@ function exportActiveView() {
     ? "they-dont"
     : "you-dont";
 
-  exportUsersCsv(users, `instagram-${label}.csv`);
+  exportUsersCsv(users, `follow-check-${label}.csv`);
 }
 
 function openResultsPage() {

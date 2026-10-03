@@ -18,7 +18,7 @@ export async function fetchCurrentUser() {
     throw endpointResult.error;
   }
 
-  throw new Error("Could not detect the logged-in Instagram account. Open instagram.com in the active tab and confirm you are logged in.");
+  throw new Error("Could not detect the logged-in account. Open the supported website in the active tab and confirm you are logged in.");
 }
 
 async function fetchCurrentUserFromEndpoints() {
@@ -29,7 +29,7 @@ async function fetchCurrentUserFromEndpoints() {
 
   for (const path of paths) {
     try {
-      const response = await instagramFetch(path);
+      const response = await platformFetch(path);
       const data = await response.json();
       const user = data.form_data || data.user || data;
       const id = user.user_id || user.pk || user.id;
@@ -75,7 +75,7 @@ async function fetchCurrentUserFromActiveTab() {
     target: {
       tabId: tab.id
     },
-    func: probeInstagramPage
+    func: probePlatformPage
   });
 
   const probedUser = result?.result;
@@ -94,7 +94,7 @@ async function fetchCurrentUserFromActiveTab() {
   };
 }
 
-function probeInstagramPage() {
+function probePlatformPage() {
   const cookies = Object.fromEntries(
     document.cookie
       .split(";")
@@ -155,7 +155,7 @@ function escapeRegExp(value) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
-function probeInstagramRuntimeConfig() {
+function probePlatformRuntimeConfig() {
   const cookies = Object.fromEntries(
     document.cookie
       .split(";")
@@ -206,7 +206,7 @@ function probeInstagramRuntimeConfig() {
   };
 }
 
-async function buildInstagramHeaders() {
+async function buildPlatformHeaders() {
   const runtimeHeaders = await resolveRuntimeHeaders();
   const headers = {
     "X-IG-App-ID": runtimeHeaders.igAppId,
@@ -226,7 +226,7 @@ async function buildInstagramHeaders() {
 
 async function fetchUserInfo(userId) {
   try {
-    const response = await instagramFetch(`/api/v1/users/${userId}/info/`);
+    const response = await platformFetch(`/api/v1/users/${userId}/info/`);
     const data = await response.json();
     const user = data.user || data;
 
@@ -237,7 +237,7 @@ async function fetchUserInfo(userId) {
       username: user.username || `user-${userId}`
     };
   } catch (error) {
-    console.info("Could not enrich Instagram user info.", error);
+    console.info("Could not enrich account info.", error);
     return null;
   }
 }
@@ -245,16 +245,16 @@ async function fetchUserInfo(userId) {
 export async function resolveUserByUsername(username) {
   const normalizedUsername = normalizeUsername(username);
   if (!normalizedUsername) {
-    throw new Error("Enter an Instagram username.");
+    throw new Error("Enter a username.");
   }
 
   try {
-    const response = await instagramFetch(`/api/v1/users/web_profile_info/?username=${encodeURIComponent(normalizedUsername)}`);
+    const response = await platformFetch(`/api/v1/users/web_profile_info/?username=${encodeURIComponent(normalizedUsername)}`);
     const data = await response.json();
     const user = data.data?.user || data.user;
 
     if (!user?.id) {
-      throw new Error("Could not find that Instagram account.");
+      throw new Error("Could not find that account.");
     }
 
     return {
@@ -264,8 +264,8 @@ export async function resolveUserByUsername(username) {
       isPrivate: Boolean(user.is_private)
     };
   } catch (error) {
-    if (error.message?.startsWith("Instagram returned 404")) {
-      throw new Error("Could not find that Instagram account.");
+    if (error.message?.startsWith("Supported website returned 404")) {
+      throw new Error("Could not find that account.");
     }
 
     throw error;
@@ -297,28 +297,28 @@ export async function fetchRelationshipPage({ userId, type, maxId }) {
     params.set("max_id", maxId);
   }
 
-  const response = await instagramFetch(`${path}?${params.toString()}`);
+  const response = await platformFetch(`${path}?${params.toString()}`);
   return response.json();
 }
 
-async function instagramFetch(path) {
-  let response = await instagramFetchWithHeaders(path);
+async function platformFetch(path) {
+  let response = await platformFetchWithHeaders(path);
 
   if ((response.status === 401 || response.status === 403) && cachedRuntimeHeaders) {
     cachedRuntimeHeaders = null;
-    response = await instagramFetchWithHeaders(path);
+    response = await platformFetchWithHeaders(path);
   }
 
   if (!response.ok) {
     if (response.status === 401 || response.status === 403) {
-      throw new Error("Instagram rejected the request. Confirm you are logged in on instagram.com.");
+      throw new Error("Supported website rejected the request. Confirm you are logged in on the supported website.");
     }
 
     if (response.status === 429) {
       throw new Error(buildRateLimitMessage(response));
     }
 
-    throw new Error(`Instagram returned ${response.status}.`);
+    throw new Error(`Supported website returned ${response.status}.`);
   }
 
   return response;
@@ -327,7 +327,7 @@ async function instagramFetch(path) {
 function buildRateLimitMessage(response) {
   const retryAfter = response.headers.get("Retry-After");
   const waitText = retryAfter ? ` Wait about ${formatRetryAfter(retryAfter)} before trying again.` : " Wait a while before trying again.";
-  return `Instagram is rate-limiting requests.${waitText}`;
+  return `The supported website is rate-limiting requests.${waitText}`;
 }
 
 function isRateLimitError(error) {
@@ -348,8 +348,8 @@ function formatRetryAfter(value) {
   return `${Math.ceil(seconds / 60)} minutes`;
 }
 
-async function instagramFetchWithHeaders(path) {
-  const headers = await buildInstagramHeaders();
+async function platformFetchWithHeaders(path) {
+  const headers = await buildPlatformHeaders();
   return fetch(`${BASE_URL}${path}`, {
     credentials: "include",
     headers
@@ -386,12 +386,12 @@ async function fetchRuntimeHeadersFromActiveTab() {
       target: {
         tabId: tab.id
       },
-      func: probeInstagramRuntimeConfig
+      func: probePlatformRuntimeConfig
     });
 
     return result?.result || null;
   } catch (error) {
-    console.info("Could not resolve Instagram runtime headers from page.", error);
+    console.info("Could not resolve runtime headers from page.", error);
     return null;
   }
 }

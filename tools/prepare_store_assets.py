@@ -51,7 +51,7 @@ def make_promo():
     muted = "#b7b7b7"
     accent = "#ffdb70"
     draw.text((28, 124), "Follow Check", fill=title_color)
-    draw.text((28, 150), "Local Instagram follower comparisons", fill=muted)
+    draw.text((28, 150), "Local follower comparisons", fill=muted)
     draw.rounded_rectangle((28, 194, 184, 236), radius=18, fill="#ffdb70")
     draw.text((58, 206), "Local first", fill="#111111")
 

@@ -2,14 +2,14 @@
 
 Effective date: October 3, 2026
 
-Follow Check is a local-only Chrome extension for comparing the Instagram followers and following lists available through the Instagram session already open in your browser.
+Follow Check is a local-only Chrome extension for comparing follower and following lists available through a supported website session already open in your browser.
 
 ## Data the Extension Handles
 
 Follow Check may process:
 
-- Your Instagram account id and username, detected from your logged-in browser session.
-- Instagram follower and following account data returned by Instagram while you run a scan.
+- Your account id and username, detected from your logged-in browser session.
+- Follower and following account data returned by the supported website while you run a scan.
 - Comparison results such as mutual accounts, accounts that do not follow you back, accounts you do not follow back, discovery comparisons, and group overlap results.
 - Local cache data used to avoid repeatedly fetching the same network comparison lists.
 
@@ -36,11 +36,11 @@ You can delete locally stored extension data by:
 
 ## Data Sharing
 
-Follow Check does not sell, transfer, or share follower data with third parties. The extension communicates with Instagram because it must request follower/following pages from Instagram to perform its stated function.
+Follow Check does not sell, transfer, or share follower data with third parties. The extension communicates with the supported website because it must request follower/following pages to perform its stated function.
 
 ## Security
 
-Requests to Instagram are made over HTTPS using your existing browser session. Follow Check does not ask for, collect, or store your Instagram password.
+Requests to the supported website are made over HTTPS using your existing browser session. Follow Check does not ask for, collect, or store your password.
 
 ## User Control
 
@@ -48,9 +48,8 @@ You control when scans run. The extension does not automatically scan in the bac
 
 ## Limited Use Statement
 
-Follow Check's use of information received from Chrome APIs and Instagram responses is limited to the extension's single purpose: local follower and following comparison. The extension's use of user data complies with the Chrome Web Store User Data Policy, including limited-use requirements.
+Follow Check's use of information received from Chrome APIs and supported website responses is limited to the extension's single purpose: local follower and following comparison. The extension's use of user data complies with the Chrome Web Store User Data Policy, including limited-use requirements.
 
 ## Changes
 
 This policy may be updated as the extension changes. The effective date above will be updated when material changes are made.
-

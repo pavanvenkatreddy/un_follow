@@ -17,8 +17,8 @@ Official references:
 - [x] Required extension icons generated and wired into `manifest.json`.
 - [x] Privacy policy draft exists at `docs/PRIVACY_POLICY.md`.
 - [x] Store listing draft exists at `docs/CHROME_WEB_STORE_LISTING.md`.
-- [x] Extension avoids Instagram password collection.
-- [x] Extension requests only `https://www.instagram.com/*` host access.
+- [x] Extension avoids password collection.
+- [x] Extension requests only the supported website host access.
 - [ ] Save the two screenshots as `docs/store-assets/source-results.png` and `docs/store-assets/source-popup.png`.
 - [ ] Run `python3 tools/prepare_store_assets.py`.
 - [ ] Create a production ZIP from only the extension files.
@@ -34,7 +34,7 @@ Official references:
 
 ## Privacy and Policy
 
-- [ ] Publish `privacy.html` at a stable public URL.
+- [ ] Publish `privacy/index.html` at a stable public URL.
 - [ ] Add that URL in the Chrome Web Store Developer Dashboard.
 - [ ] Fill out the Privacy practices tab consistently with the privacy policy.
 - [ ] Certify limited use / user data handling in the dashboard.
@@ -55,7 +55,7 @@ Official references:
 ## Manual QA
 
 - [ ] Fresh install with no saved scan.
-- [ ] Scan account while an Instagram tab is open and logged in.
+- [ ] Scan account while a supported website tab is open and logged in.
 - [ ] Scan with Refresh followers enabled.
 - [ ] Scan with Refresh followers disabled after a saved scan exists.
 - [ ] Open Results page.
@@ -71,7 +71,7 @@ Official references:
 
 ## Submission Notes
 
-- Do not claim affiliation with Instagram or Meta.
+- Do not claim affiliation with any third-party platform.
 - Keep the single purpose narrow: local follower/following comparison.
 - Keep permissions limited unless a specific feature requires more access.
 - If the extension behavior changes, update the privacy policy and dashboard disclosures before publishing an update.

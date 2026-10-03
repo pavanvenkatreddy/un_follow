@@ -1,6 +1,6 @@
 export function exportUsersCsv(users, filename) {
   const rows = [
-    ["username", "full_name", "instagram_id", "profile_url"],
+    ["username", "full_name", "account_id", "profile_url"],
     ...users.map((user) => [
       user.username || "",
       user.full_name || "",

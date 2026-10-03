@@ -11,13 +11,13 @@ Follow Check
 Short description:
 
 ```text
-Compare your Instagram followers and following locally from your browser session.
+Compare followers and following locally from your browser session.
 ```
 
 Detailed description:
 
 ```text
-Follow Check helps you compare Instagram followers and following lists using the Instagram session already open in your browser.
+Follow Check helps you compare followers and following lists using the social media session already open in your browser.
 
 The extension can show:
 
@@ -28,9 +28,11 @@ The extension can show:
 - Group overlap for selected accounts, including optional self-aware buckets.
 - CSV exports for local review.
 
-Follow Check is local-first. It does not ask for your Instagram password, does not send follower data to a developer server, and stores scan data in Chrome local storage on your device.
+Follow Check is local-first. It does not ask for your password, does not send follower data to a developer server, and stores scan data in Chrome local storage on your device.
 
-This extension is not affiliated with, endorsed by, or sponsored by Instagram or Meta. Instagram's web API can change, so scans may require you to be logged in to instagram.com and may be affected by rate limits.
+This extension is for educational purposes only. It is intended to help users understand their own follower/following relationships locally in their browser.
+
+Platform web APIs can change, so scans may require you to be logged in to the supported website and may be affected by rate limits.
 ```
 
 Category:
@@ -54,7 +56,7 @@ https://pavanvenkatreddy.github.io/
 Privacy policy URL:
 
 ```text
-Publish privacy.html with GitHub Pages and use that public URL.
+Publish privacy/index.html with GitHub Pages and use that public URL.
 ```
 
 Support URL:
@@ -66,7 +68,7 @@ Use the GitHub repository issues page or a public support/contact page.
 ## Single Purpose Statement
 
 ```text
-Follow Check's single purpose is to compare Instagram follower and following lists locally using the user's existing logged-in browser session.
+Follow Check's single purpose is to compare follower and following lists locally using the user's existing logged-in browser session.
 ```
 
 ## Permission Justifications
@@ -74,13 +76,13 @@ Follow Check's single purpose is to compare Instagram follower and following lis
 `activeTab`
 
 ```text
-Used only when the user starts a scan, so the extension can inspect the active Instagram tab and detect the logged-in account/session context.
+Used only when the user starts a scan, so the extension can inspect the active supported website tab and detect the logged-in account/session context.
 ```
 
 `scripting`
 
 ```text
-Used to run a small script on the active Instagram tab to read page/session metadata needed to identify the logged-in account and request headers.
+Used to run a small script on the active supported website tab to read page/session metadata needed to identify the logged-in account and request headers.
 ```
 
 `storage`
@@ -89,10 +91,10 @@ Used to run a small script on the active Instagram tab to read page/session meta
 Used to store the user's last local scan, discovery data, and network comparison cache in chrome.storage.local.
 ```
 
-`https://www.instagram.com/*`
+Supported website host permission
 
 ```text
-Used to request Instagram follower/following pages from the user's logged-in Instagram session. No other host access is requested.
+Used to request follower/following pages from the supported website using the user's logged-in browser session. No other host access is requested.
 ```
 
 ## Privacy Practices Draft Answers
@@ -100,7 +102,7 @@ Used to request Instagram follower/following pages from the user's logged-in Ins
 Data collected or handled:
 
 ```text
-Website content and account data from Instagram pages requested by the user, including follower/following account lists and account identifiers needed for comparison.
+Website content and account data from pages requested by the user, including follower/following account lists and account identifiers needed for comparison.
 ```
 
 Data use:
@@ -112,7 +114,7 @@ Extension functionality only.
 Data transfer:
 
 ```text
-Data is not sold, shared, or transferred to third parties by the extension developer. The extension requests data from Instagram over HTTPS to perform the user-requested comparison.
+Data is not sold, shared, or transferred to third parties by the extension developer. The extension requests data from the supported website over HTTPS to perform the user-requested comparison.
 ```
 
 Remote code:
@@ -124,7 +126,7 @@ The extension does not execute remotely hosted code.
 Authentication data:
 
 ```text
-The extension does not ask for or store Instagram passwords. Requests use the browser's existing logged-in Instagram session.
+The extension does not ask for or store passwords. Requests use the browser's existing logged-in session.
 ```
 
 ## Required Graphic Assets
