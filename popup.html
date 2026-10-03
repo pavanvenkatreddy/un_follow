@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Follow Check</title>
+    <link rel="stylesheet" href="popup.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="header">
+        <div>
+          <p class="eyebrow">Local scan</p>
+          <h1>Follow Check</h1>
+        </div>
+        <span id="accountBadge" class="account-badge">Not scanned</span>
+      </header>
+
+      <section class="stats-grid" aria-label="Scan summary">
+        <article class="stat">
+          <span class="stat-label">Fans</span>
+          <strong id="followersCount">0</strong>
+        </article>
+        <article class="stat">
+          <span class="stat-label">Follows</span>
+          <strong id="followingCount">0</strong>
+        </article>
+        <article class="stat">
+          <span class="stat-label">Mutual</span>
+          <strong id="mutualCount">0</strong>
+        </article>
+        <article class="stat danger">
+          <span class="stat-label">They don't</span>
+          <strong id="notFollowingBackCount">0</strong>
+        </article>
+        <article class="stat">
+          <span class="stat-label">You don't</span>
+          <strong id="notFollowedBackCount">0</strong>
+        </article>
+      </section>
+
+      <section class="controls" aria-label="Actions">
+        <button id="scanButton" class="primary-button" type="button">Scan</button>
+        <button id="viewResultsButton" type="button" disabled>View Results</button>
+        <button id="exportButton" type="button" disabled>Export CSV</button>
+      </section>
+
+      <label class="scan-option">
+        <input id="refreshFollowersInput" type="checkbox">
+        <span>Refresh followers</span>
+      </label>
+
+      <section class="progress-panel" aria-live="polite">
+        <div class="progress-row">
+          <span id="statusText">Ready. Open the site in this browser and stay logged in.</span>
+          <span id="progressCount">0</span>
+        </div>
+        <progress id="progressBar" max="100" value="0"></progress>
+      </section>
+
+      <nav class="tabs" aria-label="Result views">
+        <button class="tab-button active" type="button" data-view="notFollowingBack">
+          They don't
+        </button>
+        <button class="tab-button" type="button" data-view="notFollowedBack">
+          You don't
+        </button>
+      </nav>
+
+      <section id="resultsList" class="results-list" aria-label="Scan results">
+        <p class="empty-state">Run a scan to compare accounts.</p>
+      </section>
+    </main>
+
+    <template id="resultItemTemplate">
+      <article class="result-item">
+        <div class="avatar" aria-hidden="true"></div>
+        <div class="person">
+          <strong class="username"></strong>
+          <span class="full-name"></span>
+        </div>
+        <button class="profile-button" type="button">Open</button>
+      </article>
+    </template>
+
+    <script type="module" src="popup.js"></script>
+  </body>
+</html>

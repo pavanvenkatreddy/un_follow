@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Follow Check Results</title>
+    <link rel="stylesheet" href="results.css">
+  </head>
+  <body>
+    <main class="page-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Saved scan</p>
+          <h1>Results</h1>
+          <p id="scanMeta" class="scan-meta">No scan loaded.</p>
+        </div>
+        <div class="topbar-actions">
+          <button id="exportButton" type="button" disabled>Export CSV</button>
+          <button id="openInstagramButton" type="button">Open Site</button>
+        </div>
+      </header>
+
+      <nav class="mode-tabs" aria-label="Main views">
+        <button class="mode-button active" type="button" data-mode="followers">Lists</button>
+        <button class="mode-button" type="button" data-mode="discover">Discover</button>
+        <button class="mode-button" type="button" data-mode="compare" disabled>Compare</button>
+      </nav>
+
+      <section id="followersView" class="view active">
+      <section class="stats-grid" aria-label="Scan summary">
+        <button class="stat stat-button" type="button" data-followers-view="followers">
+          <span>Fans</span>
+          <strong id="followersCount">0</strong>
+        </button>
+        <button class="stat stat-button" type="button" data-followers-view="following">
+          <span>Follows</span>
+          <strong id="followingCount">0</strong>
+        </button>
+        <button class="stat stat-button" type="button" data-followers-view="mutual">
+          <span>Mutual</span>
+          <strong id="mutualCount">0</strong>
+        </button>
+        <button class="stat stat-button danger active" type="button" data-followers-view="notFollowingBack">
+          <span>They don't</span>
+          <strong id="notFollowingBackCount">0</strong>
+        </button>
+        <button class="stat stat-button" type="button" data-followers-view="notFollowedBack">
+          <span>You don't</span>
+          <strong id="notFollowedBackCount">0</strong>
+        </button>
+      </section>
+
+      <section class="toolbar" aria-label="Result tools">
+        <nav class="tabs" aria-label="Result views">
+          <button class="tab-button active" type="button" data-view="notFollowingBack">
+            They don't
+          </button>
+          <button class="tab-button" type="button" data-view="notFollowedBack">
+            You don't
+          </button>
+        </nav>
+        <label class="search-field">
+          <span>Search</span>
+          <input id="searchInput" type="search" placeholder="username or name">
+        </label>
+      </section>
+
+      <section class="list-panel">
+        <div class="list-header">
+          <strong id="listTitle">They don't</strong>
+          <span id="resultCount">0 accounts</span>
+        </div>
+        <div id="resultsList" class="results-list" aria-label="Accounts"></div>
+      </section>
+      </section>
+
+      <section id="discoverView" class="view">
+        <section class="discover-panel">
+          <div>
+            <p class="eyebrow">Discover</p>
+            <h2>Friend finds</h2>
+          </div>
+          <form id="discoverForm" class="discover-form">
+            <div class="suggestion-field">
+              <label class="search-field" for="discoverUsernameInput">
+                <span>Username</span>
+                <input id="discoverUsernameInput" type="text" placeholder="john or @john" autocomplete="off">
+              </label>
+              <div id="discoverSuggestions" class="suggestions-list" role="listbox" aria-label="People you follow"></div>
+            </div>
+            <button id="discoverCompareButton" class="primary-button" type="submit">Compare</button>
+          </form>
+          <div class="discover-progress" aria-live="polite">
+            <span id="discoverStatusText">Run Scan first, then compare.</span>
+            <strong id="discoverProgressCount">0</strong>
+          </div>
+        </section>
+
+        <section class="stats-grid discover-stats" aria-label="Discovery summary">
+          <button class="stat stat-button" type="button" data-discover-view="targetFollowing">
+            <span>Their list</span>
+            <strong id="targetFollowingCount">0</strong>
+          </button>
+          <button class="stat stat-button danger active" type="button" data-discover-view="targetOnly">
+            <span>Missing</span>
+            <strong id="targetOnlyCount">0</strong>
+          </button>
+          <button class="stat stat-button" type="button" data-discover-view="bothFollow">
+            <span>Shared</span>
+            <strong id="bothFollowCount">0</strong>
+          </button>
+          <button class="stat stat-button" type="button" data-discover-view="bothFollow">
+            <span>Overlap</span>
+            <strong id="overlapPercent">0%</strong>
+          </button>
+        </section>
+
+        <section class="list-panel">
+          <div class="list-header">
+            <strong id="discoverListTitle">Missing</strong>
+            <span id="discoverResultCount">0 accounts</span>
+          </div>
+          <div id="discoverResultsList" class="results-list" aria-label="Discovery accounts"></div>
+        </section>
+
+        <section class="network-panel">
+          <div>
+            <p class="eyebrow">Network</p>
+            <h2>Group overlap</h2>
+          </div>
+          <form id="networkForm" class="discover-form">
+            <div class="suggestion-field">
+              <label class="search-field" for="networkUsernameInput">
+                <span>Add</span>
+                <input id="networkUsernameInput" type="text" placeholder="john, sarah, mike" autocomplete="off">
+              </label>
+              <div id="networkSuggestions" class="suggestions-list" role="listbox" aria-label="People you follow"></div>
+            </div>
+            <button id="networkAddButton" type="submit">Add</button>
+          </form>
+          <div id="networkSelectedList" class="selected-list" aria-label="Selected accounts"></div>
+          <div class="network-actions">
+            <button id="networkScanButton" class="primary-button" type="button">Scan Group</button>
+            <button id="networkClearCacheButton" type="button">Clear Cache</button>
+            <label class="toggle-control">
+              <input id="networkIncludeSelfInput" type="checkbox">
+              <span>Include me</span>
+            </label>
+            <span id="networkStatusText">Add 2+ accounts.</span>
+          </div>
+        </section>
+
+        <section class="stats-grid discover-stats" aria-label="Network summary">
+          <button class="stat stat-button active" type="button" data-network-view="allIncludedFollow">
+            <span id="networkAllLabel">All share</span>
+            <strong id="networkAllCount">0</strong>
+          </button>
+          <button class="stat stat-button danger" type="button" data-network-view="notMine" hidden>
+            <span>Not mine</span>
+            <strong id="networkSeveralIDontCount">0</strong>
+          </button>
+          <button class="stat stat-button" type="button" data-network-view="uniqueFollows">
+            <span>Unique</span>
+            <strong id="networkUniqueCount">0</strong>
+          </button>
+        </section>
+
+        <section class="list-panel">
+          <div class="list-header">
+            <strong id="networkListTitle">All share</strong>
+            <span id="networkResultCount">0 accounts</span>
+          </div>
+          <div id="networkResultsList" class="results-list" aria-label="Network accounts"></div>
+        </section>
+      </section>
+    </main>
+
+    <template id="resultItemTemplate">
+      <article class="result-item">
+        <div class="avatar" aria-hidden="true"></div>
+        <div class="person">
+          <strong class="username"></strong>
+          <span class="full-name"></span>
+        </div>
+        <button class="profile-button" type="button">Open Profile</button>
+      </article>
+    </template>
+
+    <script type="module" src="results.js"></script>
+  </body>
+</html>
